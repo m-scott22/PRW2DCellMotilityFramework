@@ -1,4 +1,4 @@
-PRW2DCellMotilityFramework
+_PRW2D Cell Motility Framework_
 
 2D version of the framework for fitting the Persistent Random Walk Model to cell tracking data, parametrizing, and testing goodness of fit.
 
