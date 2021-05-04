@@ -1,0 +1,84 @@
+2D in silico trajectory analysis
+
+1. Use file 'PRW2Dsim.m' to generate in silico cell trajectories with specified parameter values. 
+Specify S, P, dt and initial speed, positions and velocities along with number of cells and simulation periods.
+Alternatively use the provided dataset PRW2Dsim1110001000.m where S=1, P=1, for 1000 cells and 1000 simulation 
+periods of dt=0.05
+
+2. Use the file 'normality.m' to conduct the Anderson-Darling test on velocities from full length tracks or all 
+tracks at each time point and output a histogram of p values.
+
+3. Use file 'fullanalysis2D.m' to carry out analysis of the cell tracks as in Figure 4 of the paper. This file can:
+-plot trajectories
+-plot the RMSS time series; estimate average cell speed parameter S with confidence interval
+-compute ln(VACF); plot ln(VACF) vs time and a line of best fit; estimate persistence time parameter P with confidence interval
+-plot histogram of speed distribution of all cell speeds at all times; overlay Maxwell-Boltzmann density function
+-compute MSD; plot this with line of best fit and model predicted MSD
+-plot speed distribution over the whole simulation time
+
+__________________________________________________________________________________________________________________________
+
+
+Variable inputs and outputs to functions
+
+sphanalysisinsilico2D
+INPUTS
+Alltraj: Matrix of velocities (vx and vy) and positions (x and y) for each cell at each time point (dimensions: Ncells by T by 4)
+N: Number of simulation periods + 1
+Ncells: Number of cells
+T: Time vector
+alphaS: Significance level for S confidence interval
+alphaP: Significance level for P confidence interval
+mse: MSE threshold for cut offs in P estimates
+
+OUTPUTS
+rootmeansquspeed: Root Mean Squared Speed
+S_est: Estimate of parameter S
+ne: Effective sample size
+S_lower: Lower limit for S confidence interval
+S_upper: Upper limit for S confidence interval
+x: Vector giving the centre of each bin in speed histograms
+normalized: Vector of normalized histogram bar heights
+allvel: Vector of speeds of all cells at all times 
+v: Vector counting the number of elements in each histogram bin on speed histograms
+g: Coefficient for the Rayleigh distribution, used in plotting Rayleigh density as an overlay to speed histograms
+YP: FGLS line fit to calculated VACF
+Tj: Amended time vector corresponding to subset of ln(VACF)
+P_est: Estimate of P parameter
+logACF: Vector of calculated ln(VACF)
+P_lower: Lower limit for P confidence interval
+P_upper: Upper limit for P confidence interval
+MSD: Vector of calculated MSD at each time point
+YM: FGLS line fit to calculated MSD
+
+___________________________________________________
+
+RMSintervalinsilico2D
+INPUTS
+Alltraj: Matrix of velocities (vx and vy) and positions (x and y) for each cell at each time point (dimensions: Ncells by T by 4)
+N: Number of periods + 1
+alphaS: Significance level for S confidence interval
+
+OUTPUTS
+ne: Effective sample size
+S_lower: Lower limit for S confidence interval
+S_upper: Upper limit for S confidence interval
+
+___________________________________________________
+
+velocitycuttinginsilico2D
+INPUTS
+Alltraj: Matrix of velocities (vx and vy) and positions (x and y) for each cell at each time point (dimensions: Ncells by T by 4)
+Ncells: Number of cells
+T: Time vector
+alphaP: Significance level for P confidence interval
+mse: MSE threshold for cut offs in P estimates
+
+OUTPUTS
+YP: FGLS line fit to calculated VACF
+Tj: Amended time vector corresponding to subset of ln(VACF)
+P_est: Estimate of P parameter
+fulllogACF: Vector of calculated ln(VACF)
+P_lower: Lower limit for P confidence interval
+P_upper: Upper limit for P confidence interval
+
